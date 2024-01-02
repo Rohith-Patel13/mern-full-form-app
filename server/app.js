@@ -1,5 +1,8 @@
+console.log("app.js","top")
 const express = require("express");
 const app = express();
+
+const usersRoutes = require("./routes/user")
 
 app.use(express.json());
 
@@ -19,3 +22,6 @@ app.listen(process.env.PORT || 6009,()=>{
             })
 })
 
+app.use("/users",usersRoutes);
+
+console.log("app.js")
