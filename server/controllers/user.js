@@ -24,8 +24,8 @@ exports.createUser = async (requestObject,responseObject)=>{
     
             // Create a new user and save to the database
             const user = await User.create({
-            email,
-            phone,
+            email: email || null,  // Set to null if empty
+            phone: phone || null,  // Set to null if empty
             name,
             profileImage,
             password: hashedPassword
