@@ -1,24 +1,33 @@
 console.log("user.js/models","top");
 const {Schema,model} = require("mongoose");
 
-const emailRegex=  /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-
 const userSchema = new Schema({
-    "userName":{
-        type:String,
-        required:[true,"name must not be empty"]
+    email: {
+      type: String,
+      required: true,
+      unique: true,
     },
-    "email":{
-        type:String,
-        required:[true,"email must not be empty"],
-        validate:{
-            validator:(email)=>emailRegex.test(email),
-            message:(props)=>`${props.value} is not a valid email`
-        }     
+    phone: {
+      type: Number,
+      required: true,
+      unique: true,
     },
-    password: { type: String, required: true }
-},{timestamps:true});
-
+    name: {
+      type: String,
+      required: true,
+    },
+    profileImage: String,
+    password: {
+      type: String,
+      required: true,
+    },
+    role: {
+      type: String,
+      enum: ['Admin', 'User'],
+      default: 'User',
+    },
+  },{timestamps:true});
+  
 const User = model("User",userSchema);
 
 module.exports = User;
