@@ -1,15 +1,21 @@
 console.log("user.js/models","top");
 const {Schema,model} = require("mongoose");
 
+const emailRegex=  /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+
 const userSchema = new Schema({
     email: {
-      type: String,
-      required: true,
-      unique: true,
+        type:String,
+        unique:true,
+        
+        validate:{
+            validator:(email)=>emailRegex.test(email),
+            message:(props)=>`${props.value} is not a valid email`
+        }
     },
     phone: {
-      type: Number,
-      required: true,
+      type: String,
       unique: true,
     },
     name: {
