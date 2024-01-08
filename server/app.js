@@ -20,7 +20,7 @@ app.listen(6009,()=>{
     mongoose.connect(process.env.MONGO_URL)
             .then(()=>console.log("Database Connected Successfully"))
             .catch((error)=>{
-                console.log(error.message);
+                console.log(error.message,"database error");
             })
 })
 

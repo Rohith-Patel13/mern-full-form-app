@@ -1,0 +1,54 @@
+### API 1 token not given
+PATCH  http://localhost:6009/users/modify/567
+Authorization:Bearer 
+Content-Type: application/json
+
+{
+   "name": "appala",
+   "profileImage":"https://www.google.com/url?sa=i&url=https%3A%2F%2Fin.pinterest.com%2Fpin%2F614389574180670030%2F&psig=AOvVaw2yEJqUn0WxBAIsD6MhqTEO&ust=1704822116718000&source=images&cd=vfe&ved=0CBIQjRxqFwoTCJDEpbirzoMDFQAAAAAdAAAAABAE"
+}
+
+### API 1 providing wrong token
+PATCH  http://localhost:6009/users/modify/567
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwibmFtZSI6IkpvZSBCaWRlbiIsInVzZXJfaWQiOjIsImlhdCI6MTY5MjAyMDg5MH0.x0L9Q2FzGUMpXhe9Mu6_lDjOq5FHPkV4cnXHzKtNDbI
+Content-Type: application/json
+
+{
+   "name": "appala",
+   "profileImage":"https://www.google.com/url?sa=i&url=https%3A%2F%2Fin.pinterest.com%2Fpin%2F614389574180670030%2F&psig=AOvVaw2yEJqUn0WxBAIsD6MhqTEO&ust=1704822116718000&source=images&cd=vfe&ved=0CBIQjRxqFwoTCJDEpbirzoMDFQAAAAAdAAAAABAE"
+}
+
+### API 1 providing correct token with wrong id
+PATCH  http://localhost:6009/users/modify/567
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTliZmYxY2RhMTQ4NmMyMDMyNDBlYjQiLCJuYW1lIjoicm9oaXRoIiwicm9sZSI6IlVzZXIiLCJpYXQiOjE3MDQ3MjQ4ODl9.aWB_t9e0AIVPm_HgkcoaiAVNHe8MDacsh8ioeZNz5nM
+Content-Type: application/json
+
+{
+   "name": "appala",
+   "profileImage":"https://www.google.com/url?sa=i&url=https%3A%2F%2Fin.pinterest.com%2Fpin%2F614389574180670030%2F&psig=AOvVaw2yEJqUn0WxBAIsD6MhqTEO&ust=1704822116718000&source=images&cd=vfe&ved=0CBIQjRxqFwoTCJDEpbirzoMDFQAAAAAdAAAAABAE"
+}
+
+
+### API 1 providing correct token with correct id
+PATCH  http://localhost:6009/users/modify/659bff1cda1486c203240eb4
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTliZmYxY2RhMTQ4NmMyMDMyNDBlYjQiLCJuYW1lIjoicm9oaXRoIiwicm9sZSI6IlVzZXIiLCJpYXQiOjE3MDQ3MjQ4ODl9.aWB_t9e0AIVPm_HgkcoaiAVNHe8MDacsh8ioeZNz5nM
+Content-Type: application/json
+
+{
+   "name": "appala",
+   "profileImage":"https://www.google.com/url?sa=i&url=https%3A%2F%2Fin.pinterest.com%2Fpin%2F614389574180670030%2F&psig=AOvVaw2yEJqUn0WxBAIsD6MhqTEO&ust=1704822116718000&source=images&cd=vfe&ved=0CBIQjRxqFwoTCJDEpbirzoMDFQAAAAAdAAAAABAE"
+}
+
+
+### API 2 delete own user with wrong token and id
+DELETE http://localhost:6009/users/deleteOwn/hkbq
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTliZmYxY2RhMTQ4NmMyMDMyNDBlYjQiLCJuYW1lIjoicm9oaXRoIiwicm9sZSI6XIiLCJpYXQiOjE3MDQ3MjQ4ODl9.aWB_t9e0AIVPm_HgkcoaiAVNHe8MDacsh8ioeZNz5nM
+
+
+### API 2 delete own user with wrong id
+DELETE http://localhost:6009/users/deleteOwn/hkbq
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTlhZTU3NGMxODFhYjYzM2E1ODE0ZDMiLCJuYW1lIjoiamF5YW4iLCJyb2xlIjoiVXNlciIsImlhdCI6MTcwNDczNjQzMn0.0XK1cv_xtS_O2gobZ8wZ0LFuo0Md3Z06WSp1tRVbuJg
+
+### API 2 delete own user with correct id
+DELETE http://localhost:6009/users/deleteOwn/659ae574c181ab633a5814d3
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTlhZTU3NGMxODFhYjYzM2E1ODE0ZDMiLCJuYW1lIjoiamF5YW4iLCJyb2xlIjoiVXNlciIsImlhdCI6MTcwNDczNjQzMn0.0XK1cv_xtS_O2gobZ8wZ0LFuo0Md3Z06WSp1tRVbuJg

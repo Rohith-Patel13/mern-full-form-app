@@ -1,10 +1,11 @@
 const { check, validationResult } = require('express-validator');
 
+const jwt = require('jsonwebtoken');
 
 
 
 //middleware to authenticate the JWT token:
-exports.authenticateJwtToken = (requestObject, responseObject, next) => {
+exports.authenticateUser = (requestObject, responseObject, next) => {
     /*
       example:
       let options = {
@@ -39,11 +40,7 @@ exports.authenticateJwtToken = (requestObject, responseObject, next) => {
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjkxNzMzNTkxfQ.pr-0VY1GVd5EpndR7ua3Ta1H7nrDOzZi-Ok1OqFmCU4']
       */
       tokenValue = authorizationArray[1];
-    }else{
-        responseObject.status(401);
-        responseObject.send("provide authorization value");        
     }
-  
     if (tokenValue === undefined) {
       responseObject.status(401);
       responseObject.send("provide token value");
@@ -51,13 +48,13 @@ exports.authenticateJwtToken = (requestObject, responseObject, next) => {
       jwt.verify(tokenValue, process.env.SECRET_JWT_KEY, async (error, payload) => {
         if (error) {
           responseObject.status(401);
-          responseObject.send("Invalid JWT Token");
+          responseObject.send({err:error.message+" in jwt.verify failed"});
         } else {
           console.log(payload);
   
-          requestObject.username = payload.username;
-          requestObject.user_id = payload.user_id;
           requestObject.name = payload.name;
+          requestObject.userId = payload.userId;
+          requestObject.UserRole = payload.role;
           next();
         }
       });

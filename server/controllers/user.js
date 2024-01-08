@@ -1,7 +1,5 @@
 console.log("user.js/controllers","top")
 const User = require("../models/user");
-const {authenticateUser, validateUserUpdate} = require("../middlewares/user")
-
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -11,7 +9,7 @@ const jwt = require('jsonwebtoken');
 // signUp handler function
 exports.createUser = async (requestObject,responseObject)=>{
     try {
-        const { email, phone, name, profileImage, password } = requestObject.body;
+        const { email, phone, name, profileImage, password ,role} = requestObject.body;
     
         // Check if email or phone is provided
         if (!email && !phone) {
@@ -36,7 +34,7 @@ exports.createUser = async (requestObject,responseObject)=>{
     } catch (error) {
         console.log(error.message);
         responseObject.status(500)
-        responseObject.send(error.message);
+        responseObject.send({e:error.message,err:"createUser handler function"});
     }   
 }
 
@@ -66,52 +64,51 @@ exports.loginUser = async (requestObject, responseObject) => {
                 responseObject.status(401)
                 responseObject.send({ error: 'Invalid Password' });
             }else{
-                const payload = { userId: user._id, role: user.role }
+                const payload = { userId: user._id,name:user.name, role: user.role }
+                // console.log(payload)
                 // Generate JWT token
                 const token = jwt.sign(payload, process.env.SECRET_JWT_KEY);
                 responseObject.status(200)
-                responseObject.send({ token });
+                responseObject.send({jwtToken: token,payload });
             }
         }
       }
     } catch (error) {
       console.error(error);
       responseObject.status(500)
-      responseObject.send({ error: 'Internal Server Error' });
+      responseObject.send({ error: 'loginUser handler function' });
     }
 }
 
 
-
-// Modify Own User Details 
-exports.modifyUserDetails=(authenticateUser, validateUserUpdate, async (requestObject, responseObject) => {
+//API 1 Modify Own User Details 
+exports.modifyUserDetails=  async (requestObject, responseObject) => {
     try {
       const { name, profileImage } = requestObject.body;
-      const userId = requestObject.params.id;
   
       // Check if the user is modifying their own details
-      if (requestObject.user._id.toString() !== userId) {
+      if (requestObject.userId.toString() !== requestObject.params.id) {
         return responseObject.status(403).send({ error: 'Permission denied' });
       }
   
       // Update user details
-      const updatedUser = await User.findByIdAndUpdate(userId, { name, profileImage }, { new: true });
+      const updatedUser = await User.findByIdAndUpdate(requestObject.params.id, { name, profileImage }, { new: true });
   
       responseObject.status(200).send(updatedUser);
     } catch (error) {
-      console.log(error.message);
-      responseObject.status(500).send({ error: 'Internal Server Error' });
+      console.log(error.message,"modifyUserDetails in controllers");
+      responseObject.status(500).send({ error: `${error.message} in modifyUserDetails in controllers` });
     }
-});
+}
 
 
-// Delete own user account
-exports.deleteUser = (authenticateUser,async(requestObject, responseObject) => {
+// API 2 Delete own user account
+exports.deleteUser = async(requestObject, responseObject) => {
     try {
       const userId = requestObject.params.id;
   
       // Check if the user is deleting their own account
-      if (requestObject.user._id.toString() !== userId) {
+      if (requestObject.userId.toString() !== userId) {
         return responseObject.status(403).send({ error: 'Permission denied' });
       }
   
@@ -123,15 +120,15 @@ exports.deleteUser = (authenticateUser,async(requestObject, responseObject) => {
       console.log(error.message);
       responseObject.status(500).send({ error: 'Internal Server Error' });
     }
-})
+}
   
 
 
 // Admin Access - View all users
-exports.allAdminVal=(authenticateUser, async (requestObject, responseObject) => {
+exports.allAdminVal= async (requestObject, responseObject) => {
     try {
       // Check if the user is an admin
-      if (requestObject.user.role !== 'Admin') {
+      if (requestObject.UserRole !== 'Admin') {
         return responseObject.status(403).send({ error: 'Permission denied' });
       }
   
@@ -142,11 +139,11 @@ exports.allAdminVal=(authenticateUser, async (requestObject, responseObject) => 
       console.log(error.message);
       responseObject.status(500).send({ error: 'Internal Server Error' });
     }
-});
+}
   
 
 // Admin Access - Modify User Details
-exports.modifyUserDetailsAdmin= (authenticateUser, validateUserUpdate, async (requestObject, responseObject) => {
+exports.modifyUserDetailsAdmin=  async (requestObject, responseObject) => {
     try {
       const { name, profileImage } = requestObject.body;
       const userId = requestObject.params.id;
@@ -164,11 +161,11 @@ exports.modifyUserDetailsAdmin= (authenticateUser, validateUserUpdate, async (re
       console.log(error.message);
       responseObject.status(500).send({ error: 'Internal Server Error' });
     }
-});
+}
 
 
 // Admin Access - Delete User
-exports.deleteAdminUser = (authenticateUser, async (requestObject, responseObject) => {
+exports.deleteAdminUser =  async (requestObject, responseObject) => {
     try {
       const userId = requestObject.params.id;
   
@@ -185,16 +182,15 @@ exports.deleteAdminUser = (authenticateUser, async (requestObject, responseObjec
       console.error(error);
       res.status(500).send({ error: 'Internal Server Error' });
     }
-  });
+  }
 
 
 // create admin
-exports.createAdmin= (authenticateUser,async (requestObject, responseObject) => {
+exports.createAdmin= async (requestObject, responseObject) => {
     try {
       const { email, phone, name, password } = requestObject.body;
   
-      // Check if the user is an admin (for illustration purposes)
-      // In a real application, you might have a more secure method to create admin accounts
+      
       const isAdmin = true;
   
       if (!isAdmin) {
@@ -215,7 +211,7 @@ exports.createAdmin= (authenticateUser,async (requestObject, responseObject) => 
       console.log(error.message);
       responseObject.status(500).send({ error: 'Internal Server Error' });
     }
-});
+}
   
   
 
