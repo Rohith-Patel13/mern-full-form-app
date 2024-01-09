@@ -24,7 +24,7 @@ router.delete('/deleteOwn/:id',middlewareLogic.authenticateUser,usersController.
 router.get('/admin/AllUsers',middlewareLogic.authenticateUser,usersController.allAdminVal)
 
 // Admin Access - Modify User Details
-router.patch('/admin/modify/:id',middlewareLogic.authenticateUser, middlewareLogic.validateUserUpdate,usersController.modifyUserDetailsAdmin)
+router.patch('/admin/modify/:id',middlewareLogic.authenticateUser,usersController.modifyUserDetailsAdmin)
 
 // Admin Access - Delete User
 router.delete('/admin/delete/:id',middlewareLogic.authenticateUser, usersController.deleteAdminUser)

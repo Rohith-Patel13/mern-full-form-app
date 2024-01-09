@@ -26,7 +26,8 @@ exports.createUser = async (requestObject,responseObject)=>{
             phone: phone || null,  // Set to null if empty
             name,
             profileImage,
-            password: hashedPassword
+            password: hashedPassword,
+            role
             });
             responseObject.status(201)
             responseObject.send(user);
@@ -124,7 +125,7 @@ exports.deleteUser = async(requestObject, responseObject) => {
   
 
 
-// Admin Access - View all users
+// API3 Admin Access - View all users
 exports.allAdminVal= async (requestObject, responseObject) => {
     try {
       // Check if the user is an admin
@@ -149,8 +150,8 @@ exports.modifyUserDetailsAdmin=  async (requestObject, responseObject) => {
       const userId = requestObject.params.id;
   
       // Check if the user is an admin
-      if (requestObject.user.role !== 'Admin') {
-        return responseObject.status(403).send({ error: 'Permission denied' });
+      if (requestObject.UserRole !== 'Admin') {
+        return responseObject.status(403).send({ error: 'Only Admin can Modify details of others or his own' });
       }
   
       // Update user details
@@ -189,8 +190,6 @@ exports.deleteAdminUser =  async (requestObject, responseObject) => {
 exports.createAdmin= async (requestObject, responseObject) => {
     try {
       const { email, phone, name, password } = requestObject.body;
-  
-      
       const isAdmin = true;
   
       if (!isAdmin) {

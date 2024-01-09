@@ -63,15 +63,3 @@ exports.authenticateUser = (requestObject, responseObject, next) => {
 
 
 
-exports.validateUserUpdate = [
-    check('name').optional().isString(),
-    check('profileImage').optional().isURL(),
-    (requestObject, responseObject, next) => {
-      const errors = validationResult(requestObject);
-      if (!errors.isEmpty()) {
-        return responseObject.status(400).send({ errors: errors.array() });
-      }
-      next();
-    },
-];
-  

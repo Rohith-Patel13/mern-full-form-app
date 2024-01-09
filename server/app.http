@@ -52,3 +52,29 @@ Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTlhZT
 ### API 2 delete own user with correct id
 DELETE http://localhost:6009/users/deleteOwn/659ae574c181ab633a5814d3
 Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTlhZTU3NGMxODFhYjYzM2E1ODE0ZDMiLCJuYW1lIjoiamF5YW4iLCJyb2xlIjoiVXNlciIsImlhdCI6MTcwNDczNjQzMn0.0XK1cv_xtS_O2gobZ8wZ0LFuo0Md3Z06WSp1tRVbuJg
+
+
+### API 3 Admin can view all users
+GET http://localhost:6009/users/admin/AllUsers
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTlkMzlmMzgxNWQ2YzU5NmQ4NTI2ZjYiLCJuYW1lIjoibWFuaXNoIiwicm9sZSI6IkFkbWluIiwiaWF0IjoxNzA0ODAzMDAxfQ.93-jTcDa5dndtNhF9tcs8K5c11qF_LAI0YiYyvZHBvc
+
+
+### API 4 Admin Access - Modify User Details with wrong jwt token(not admin jwt)
+PATCH  http://localhost:6009/users/admin/modify/659bff1cda1486c203240eb4
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTliZmYxY2RhMTQ4NmMyMDMyNDBlYjQiLCJuYW1lIjoicm9oaXRoIiwicm9sZSI6IlVzZXIiLCJpYXQiOjE3MDQ3MjQ4ODl9.aWB_t9e0AIVPm_HgkcoaiAVNHe8MDacsh8ioeZNz5nM
+Content-Type: application/json
+
+{
+   "name": "patel shyam",
+   "profileImage":"https://play.google.com/store/apps/details?id=com.raniaapps.animeboyprofilepicture&hl=en_US"
+}
+
+### API 4 Admin Access - Modify User Details Of his own and other users also
+PATCH  http://localhost:6009/users/admin/modify/659bff1cda1486c203240eb4
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTlkMzlmMzgxNWQ2YzU5NmQ4NTI2ZjYiLCJuYW1lIjoibWFuaXNoIiwicm9sZSI6IkFkbWluIiwiaWF0IjoxNzA0ODAzMDAxfQ.93-jTcDa5dndtNhF9tcs8K5c11qF_LAI0YiYyvZHBvc
+Content-Type: application/json
+
+{
+   "name": "patel shyam",
+   "profileImage":"https://play.google.com/store/apps/details?id=com.raniaapps.animeboyprofilepicture&hl=en_US"
+}
