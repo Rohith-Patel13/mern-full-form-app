@@ -27,7 +27,7 @@ exports.createUser = async (requestObject,responseObject)=>{
             name,
             profileImage,
             password: hashedPassword,
-            role
+            
             });
             responseObject.status(201)
             responseObject.send(user);
@@ -143,7 +143,7 @@ exports.allAdminVal= async (requestObject, responseObject) => {
 }
   
 
-// Admin Access - Modify User Details
+// API 4 Admin Access - Modify User Details
 exports.modifyUserDetailsAdmin=  async (requestObject, responseObject) => {
     try {
       const { name, profileImage } = requestObject.body;
@@ -171,7 +171,7 @@ exports.deleteAdminUser =  async (requestObject, responseObject) => {
       const userId = requestObject.params.id;
   
       // Check if the user is an admin
-      if (requestObject.user.role !== 'Admin') {
+      if (requestObject.UserRole !== 'Admin') {
         return responseObject.status(403).send({ error: 'Permission denied' });
       }
   

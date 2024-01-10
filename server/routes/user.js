@@ -30,7 +30,7 @@ router.patch('/admin/modify/:id',middlewareLogic.authenticateUser,usersControlle
 router.delete('/admin/delete/:id',middlewareLogic.authenticateUser, usersController.deleteAdminUser)
 
 // Create Admin
-router.post('/admin/signup',middlewareLogic.authenticateUser, usersController.createAdmin)
+router.post('/admin/signup', usersController.createAdmin)
 
 
 

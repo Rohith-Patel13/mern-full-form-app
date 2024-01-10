@@ -75,6 +75,15 @@ Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTlkMz
 Content-Type: application/json
 
 {
-   "name": "patel shyam",
-   "profileImage":"https://play.google.com/store/apps/details?id=com.raniaapps.animeboyprofilepicture&hl=en_US"
+   "name": "patel shyam singh",
+   "profileImage":"http://play.google.com/store/apps/details?id=com.raniaapps.animeboyprofilepicture&hl=en_US"
 }
+
+### API 4 user without admin access trying to deleting other account
+DELETE http://localhost:6009/users/admin/delete/659aaddb4ef146c9e5849a02
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTlhZTU3NGMxODFhYjYzM2E1ODE0ZDMiLCJuYW1lIjoiamF5YW4iLCJyb2xlIjoiVXNlciIsImlhdCI6MTcwNDczNjQzMn0.0XK1cv_xtS_O2gobZ8wZ0LFuo0Md3Z06WSp1tRVbuJg
+
+
+### API 4 Admin deleting other account
+DELETE http://localhost:6009/users/admin/delete/659aaddb4ef146c9e5849a02
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTlkMzlmMzgxNWQ2YzU5NmQ4NTI2ZjYiLCJuYW1lIjoibWFuaXNoIiwicm9sZSI6IkFkbWluIiwiaWF0IjoxNzA0ODAzMDAxfQ.93-jTcDa5dndtNhF9tcs8K5c11qF_LAI0YiYyvZHBvc
